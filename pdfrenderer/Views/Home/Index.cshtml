@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Mvc to pdf render prototype";
+}
+
+<h2>Render MVC view as PDF</h2>
+<p>
+    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+    <p>
+    This project uses the Rotativa for pdf producing. Pdf.js for pdf rendering. jquery.avrund.js - port of original hakimel/Avrund.js
+    </p>
+    <p>
+    type: PM> Install-Package Rotativa <a href="https://github.com/webgio/Rotativa#readme" title="Extremely easy way to make pdfs!">https://github.com/webgio/Rotativa#readme</a>.
+    </p>
+
+</p>
+
+<p>
+@Html.ActionLink("PDF Popup viewer","Viewer","Home",new {url = "/Home/Pdf"},null)
+</p>
+<p>
+@Html.ActionLink("Render pdf as embedded view","Embed","Home",new {url = "/Home/Index"},null)
+</p>
+<p>
+@Html.ActionLink("Raw Pdf","Pdf","Home")
+</p>
+
+<p>
+@Html.ActionLink("View Pdf template -> /Home/About","About","Home")
+</p>

@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Pdf Viewer";
+}
+
+
+@{
+    
+    var url = HttpUtility.UrlDecode(ViewBag.PdfRawUrl);
+   
+    }
+
+<h2>Prototype Pdf Viewer, MVC3 Views Rendered as Pdf</h2>
+
+	<div class="buttons">
+			<a href="@url" id="show" target="_blank" class="button left">Show Pdf in a popup</a>		
+		</div>
+
+<div id="pdfsection" style="display: none">
+ Please wait loading...
+</div>
+
+<script type="text/javascript">
+
+
+
+@if (string.IsNullOrEmpty(url))
+{
+
+    url = "/Home/Pdf";
+
+}
+
+    $("#show").avgrund({
+        height: 800,
+        width: 1000,
+        holderClass: 'custom',
+        showClose: true,
+        showCloseText: 'Close',
+        enableStackAnimation: true,
+        onBlurContainer: 'body',
+        openOnEvent: true,
+        onLoad: function (self) {        
+            $(".avgrund-popin").fadeOut().empty().html("<div></div>").css('display', 'none').load("/Home/Renderer?url=@url", function (data) {
+                $(this).fadeIn('fast');
+                $(this).addClass('loaded');
+            });
+        },
+        onUnload: function (self) {
+
+            $('.buttons').html('').append('<a>Back...</a>').click(function (e) {
+                e.preventDefault();
+                window.location.href = "/Home";
+            });
+
+        },
+        template: function () {
+
+            $(".avgrund-popin").fadeOut().empty().css('display', 'none').load("/Home/Renderer?url=@url", function (data) {
+                $(this).fadeIn('fast');
+                $(this).addClass('loaded');
+            });
+
+            $('.avgrund-popin').html();
+
+        }
+
+
+    });
+
+   
+    
+</script>

@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Embed any iframe and render it as pdf";
+    
+}
+
+<h2>Prototype Pdf Viewer, MVC3 Views Rendered as Pdf</h2>
+
+	<div class="buttons">
+			<a href="/Home/Renderer?url=@ViewBag.PdfRawUrl" id="show" class="button left">Show Pdf in a popup</a>		
+		</div>
+
+<span class="loading">Please wait loading...</span>
+
+<div id="pdfsection" style="display: none">
+ 
+ @{
+     var url = "";
+     if (Url.IsLocalUrl((string)Model)){ url = Url.Content((string)Model);}
+     url = HttpUtility.UrlDecode(ViewBag.PdfRawUrl ?? "/Home/Pdf"); 
+ }
+
+ <iframe src="@url" width="920" height="400" seamless></iframe>
+
+</div>
+
+<script type="text/javascript">
+
+    $('frame').on('load', function (e) {
+        onLoad();
+    });
+
+    function onLoad() {
+        $('.loading').fadeOut();
+        $("#pdfsection").fadeIn();
+    }
+
+</script>
+
+
